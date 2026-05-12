@@ -21,6 +21,12 @@
   const waterStreamMaxDistance = 600;
   const campfireBurningAmbienceSound = createLoopingSoundEffect(data.audio?.campfireBurningAmbience);
   const campfireBurningMaxDistance = 300;
+  const loadingState = {
+    complete: false,
+    loaded: 0,
+    total: 0,
+    label: "Собираем дачный мир..."
+  };
   const backgroundMusicTargetVolume = clamp(
     typeof data.audio?.backgroundMusic?.volume === "number" ? data.audio.backgroundMusic.volume : 0.15,
     0,
@@ -179,15 +185,12 @@
     sample: sampleMapMaskAt
   };
 
-  preloadSpriteImages();
-  preloadTreeImages();
-  preloadObjectImages();
-  preloadMapImage();
-  preloadCollisionMasks();
-
-  setupAudioUnlock();
-
   function render() {
+    if (!loadingState.complete) {
+      renderLoadingScreen();
+      return;
+    }
+
     if (state.screen !== "creator") {
       clearRetroErrorStopTimeout();
       stopLoopingSoundEffect(retroErrorSound);
@@ -611,6 +614,138 @@
         </div>
       </section>
     `;
+  }
+
+  function renderLoadingScreen() {
+    const progress = loadingState.total > 0
+      ? Math.round((loadingState.loaded / loadingState.total) * 100)
+      : 0;
+
+    app.innerHTML = `
+      <section class="boot-loading-screen" style="--creator-bg:url('${data.creatorUi.background}')">
+        <div class="boot-loading-panel">
+          <p class="boot-loading-kicker">Дачный режим</p>
+          <h1 class="boot-loading-title">Готовим открытку к запуску</h1>
+          <p class="boot-loading-copy">${loadingState.label}</p>
+          <div class="boot-loading-meter" aria-label="Загрузка ресурсов">
+            <span class="boot-loading-fill" style="width:${progress}%"></span>
+          </div>
+          <div class="boot-loading-meta">
+            <span>${progress}%</span>
+            <span>${loadingState.loaded} / ${loadingState.total || 0}</span>
+          </div>
+        </div>
+      </section>
+    `;
+  }
+
+  function collectAssetUrls(value, result = []) {
+    if (!value) {
+      return result;
+    }
+
+    if (typeof value === "string") {
+      if (/^assets\//.test(value)) {
+        result.push(value);
+      }
+      return result;
+    }
+
+    if (Array.isArray(value)) {
+      value.forEach((item) => collectAssetUrls(item, result));
+      return result;
+    }
+
+    if (typeof value === "object") {
+      Object.values(value).forEach((item) => collectAssetUrls(item, result));
+    }
+
+    return result;
+  }
+
+  function getCriticalAssetUrls() {
+    const mapObjectImages = data.map.objects.map((object) => object.image).filter(Boolean);
+    const mapMasks = Object.values(data.map.collisionMasks || {}).map((mask) => mask?.path).filter(Boolean);
+
+    return Array.from(new Set([
+      ...collectAssetUrls(data.creatorUi),
+      ...collectAssetUrls(data.mapUi),
+      ...collectAssetUrls(data.characterOutfits),
+      ...collectAssetUrls(data.audio),
+      data.map.backgroundImage,
+      ...mapObjectImages,
+      ...mapMasks
+    ].filter(Boolean)));
+  }
+
+  function getSecondaryAssetUrls() {
+    return [];
+  }
+
+  function isImageAsset(url) {
+    return /\.(png|jpe?g|gif|webp|avif)(?:\?.*)?$/i.test(url);
+  }
+
+  function preloadImage(url) {
+    return new Promise((resolve) => {
+      const image = new Image();
+      image.onload = () => resolve(true);
+      image.onerror = () => resolve(false);
+      image.src = url;
+    });
+  }
+
+  function warmAssetRequest(url) {
+    return fetch(url, { cache: "force-cache" })
+      .then((response) => response.ok)
+      .catch(() => false);
+  }
+
+  function preloadCriticalAsset(url) {
+    return warmAssetRequest(url)
+      .then(() => isImageAsset(url) ? preloadImage(url) : true)
+      .catch(() => false);
+  }
+
+  function updateLoadingProgress(label) {
+    loadingState.loaded += 1;
+    loadingState.label = label;
+    renderLoadingScreen();
+  }
+
+  function preloadCriticalAssets() {
+    const criticalAssets = getCriticalAssetUrls();
+    loadingState.total = criticalAssets.length;
+    loadingState.loaded = 0;
+    loadingState.label = "Подгружаем картинки, спрайты и звук...";
+    renderLoadingScreen();
+
+    return Promise.allSettled(
+      criticalAssets.map((url) => preloadCriticalAsset(url)
+        .finally(() => updateLoadingProgress("Финально раскладываем детали сцены...")))
+    );
+  }
+
+  function preloadSecondaryAssets() {
+    getSecondaryAssetUrls().forEach((url) => {
+      warmAssetRequest(url);
+    });
+  }
+
+  function bootGame() {
+    renderLoadingScreen();
+    preloadCriticalAssets()
+      .finally(() => {
+        loadingState.complete = true;
+        preloadSpriteImages();
+        preloadTreeImages();
+        preloadObjectImages();
+        preloadMapImage();
+        preloadCollisionMasks();
+        setupAudioUnlock();
+        preloadSecondaryAssets();
+        render();
+      });
   }
 
   function renderCreatorContent() {
@@ -4178,5 +4313,5 @@
       .replaceAll(">", "&gt;");
   }
 
-  render();
+  bootGame();
 })();

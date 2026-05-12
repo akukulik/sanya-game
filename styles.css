@@ -48,6 +48,79 @@ p {
   min-height: 100vh;
 }
 
+.boot-loading-screen {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(rgba(245, 239, 219, 0.18), rgba(245, 239, 219, 0.36)),
+    var(--creator-bg) center / cover no-repeat;
+}
+
+.boot-loading-panel {
+  width: min(100%, 560px);
+  padding: clamp(20px, 4vw, 34px);
+  border: 1px solid rgba(104, 78, 49, 0.34);
+  border-radius: 8px;
+  background: rgba(255, 247, 230, 0.94);
+  box-shadow: 0 18px 40px rgba(55, 38, 20, 0.24);
+  backdrop-filter: blur(3px);
+}
+
+.boot-loading-kicker,
+.boot-loading-copy,
+.boot-loading-meta {
+  margin-bottom: 0;
+}
+
+.boot-loading-kicker {
+  color: #8e6138;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.boot-loading-title {
+  margin: 10px 0 10px;
+  font-size: clamp(1.55rem, 3vw, 2.2rem);
+  line-height: 1.1;
+}
+
+.boot-loading-copy {
+  color: #6f5b44;
+  line-height: 1.45;
+}
+
+.boot-loading-meter {
+  width: 100%;
+  height: 16px;
+  margin-top: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(104, 78, 49, 0.34);
+  border-radius: 999px;
+  background: rgba(123, 139, 84, 0.16);
+}
+
+.boot-loading-fill {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background:
+    linear-gradient(90deg, #6f944a, #b77b42);
+  transition: width 180ms ease;
+}
+
+.boot-loading-meta {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: #6f5b44;
+  font-size: 0.92rem;
+}
+
 .game-shell {
   width: min(100%, 1520px);
   min-height: 100vh;
@@ -1537,7 +1610,7 @@ p {
   max-width: 62%;
   max-height: 50%;
   aspect-ratio: 656 / 628;
-  padding: 10%;
+  padding: 2% 5%;
   background: var(--map-letter-panel) center / 100% 100% no-repeat;
   color: #5f3518;
   image-rendering: pixelated;
@@ -1564,8 +1637,11 @@ p {
 .map-letter-text {
   height: 100%;
   overflow: auto;
-  font-size: clamp(0.6rem, 1.02vw, 0.9rem);
-  line-height: 1.26;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: clamp(0.725rem, 1.15vw, 1.025rem);
+  line-height: 1.35;
   font-weight: 800;
   text-align: center;
   text-shadow: 0 1px 0 rgba(255, 236, 177, 0.75);
