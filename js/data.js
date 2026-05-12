@@ -1,7 +1,7 @@
 window.GAME_DATA = {
   audio: {
     backgroundMusic: {
-      src: "assets/audio/background-music-local.wav?v=rap-2",
+      src: "assets/audio/background-music-local.mp3?v=rap-2",
       volume: 0.08,
       fadeInDurationMs: 7000
     },
@@ -663,8 +663,8 @@ window.GAME_DATA = {
         width: 121,
         height: 104,
         anchor: "bottom-center",
-        walkBehindRatio: 0.5,
-        walkFrontRatio: 0.5
+        walkBehindRatio: 0.65,
+        walkFrontRatio: 0.35
       },
       {
         id: "campfire-1",

@@ -624,7 +624,7 @@
     app.innerHTML = `
       <section class="boot-loading-screen" style="--creator-bg:url('${data.creatorUi.background}')">
         <div class="boot-loading-panel">
-          <p class="boot-loading-kicker">Дачный режим</p>
+          <p class="boot-loading-kicker">Квест Сани</p>
           <h1 class="boot-loading-title">Готовим открытку к запуску</h1>
           <p class="boot-loading-copy">${loadingState.label}</p>
           <div class="boot-loading-meter" aria-label="Загрузка ресурсов">
