@@ -2313,7 +2313,7 @@ p {
   }
 }
 
-@media (max-width: 760px), (orientation: landscape) and (max-height: 520px) {
+@media (orientation: landscape) and (max-width: 760px), (orientation: landscape) and (max-height: 520px) {
   .creator-scene {
     width: min(calc(100vw - 10px), calc((100svh - 10px) * 1.5988));
     gap: clamp(6px, 1.4vw, 12px);
@@ -2460,6 +2460,198 @@ p {
     width: clamp(108px, 17vw, 138px);
     height: clamp(34px, 8vh, 46px);
     font-size: clamp(0.78rem, 1.9vw, 0.96rem);
+  }
+}
+
+@media (orientation: portrait) and (max-width: 520px), (min-width: 521px) and (max-width: 760px) and (max-height: 760px) {
+  .creator-screen {
+    align-items: start;
+    overflow: auto;
+    padding: 8px 0 18px;
+  }
+
+  .creator-scene {
+    width: min(calc(100vw - 16px), 430px);
+    min-height: auto;
+    aspect-ratio: auto;
+    gap: 10px;
+    padding: 8px;
+    transform: none;
+  }
+
+  .creator-top,
+  .creator-board-decor {
+    display: none;
+  }
+
+  .creator-board {
+    min-height: auto;
+    padding: 12px;
+    gap: 12px;
+    grid-template-rows: auto auto;
+  }
+
+  .creator-panels {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-top: 0;
+  }
+
+  .creator-panel-card {
+    height: auto;
+    padding: 12px;
+  }
+
+  .creator-panel-header {
+    padding-bottom: 8px;
+  }
+
+  .creator-panel-header h2 {
+    font-size: clamp(1rem, 4.4vw, 1.25rem);
+  }
+
+  .creator-outfit-box {
+    min-height: 292px;
+    padding: 12px;
+  }
+
+  .creator-counter {
+    top: 9px;
+    width: 78px;
+  }
+
+  .creator-showcase {
+    top: 50px;
+    left: 14px;
+    right: 14px;
+    bottom: 86px;
+    grid-template-columns: 38px minmax(0, 1fr) 38px;
+    gap: 8px;
+  }
+
+  .outfit-arrow {
+    max-width: 38px;
+  }
+
+  .pixel-preview {
+    height: 88%;
+    max-height: 170px;
+  }
+
+  .creator-description-card {
+    width: min(78%, 280px);
+    min-height: 70px;
+    padding: 10px 14px;
+  }
+
+  .creator-description-card h3 {
+    font-size: 0.86rem;
+  }
+
+  .creator-description-card p {
+    font-size: 0.68rem;
+    line-height: 1.16;
+  }
+
+  .creator-stats-panel {
+    padding-top: 12px;
+  }
+
+  .creator-stats-list {
+    width: min(92%, 340px);
+    gap: 7px;
+  }
+
+  .outfit-stat-card {
+    min-height: 58px;
+    grid-template-columns: 42px minmax(0, 1fr);
+    padding: 7px 12px;
+  }
+
+  .outfit-stat-icon {
+    width: 38px;
+    height: 38px;
+  }
+
+  .outfit-stat-copy {
+    align-items: center;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .outfit-stat-label {
+    font-size: 0.72rem;
+  }
+
+  .outfit-stat-value {
+    font-size: 0.82rem;
+  }
+
+  .creator-actions {
+    justify-content: center;
+  }
+
+  .creator-select-button {
+    width: min(100%, 300px);
+    min-height: 52px;
+  }
+}
+
+@media (min-width: 521px) and (max-width: 760px) and (max-height: 760px) {
+  .creator-scene {
+    width: min(calc(100vw - 16px), 520px);
+  }
+
+  .creator-outfit-box {
+    min-height: 210px;
+  }
+
+  .creator-showcase {
+    top: 44px;
+    bottom: 78px;
+  }
+
+  .pixel-preview {
+    max-height: 116px;
+  }
+
+  .creator-description-card {
+    min-height: 56px;
+    padding: 8px 12px;
+  }
+
+  .creator-description-card h3 {
+    font-size: 0.78rem;
+  }
+
+  .creator-description-card p {
+    font-size: 0.62rem;
+  }
+
+  .creator-stats-list {
+    width: min(92%, 430px);
+  }
+
+  .outfit-stat-card {
+    min-height: 46px;
+    padding: 6px 10px;
+  }
+
+  .outfit-stat-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .outfit-stat-label {
+    font-size: 0.66rem;
+  }
+
+  .outfit-stat-value {
+    font-size: 0.76rem;
+  }
+
+  .creator-select-button {
+    min-height: 46px;
   }
 }
 
