@@ -202,44 +202,6 @@ window.GAME_DATA = {
       ],
       walkAnimations: {
         left: [
-          "assets/sasha_dacha_walk_left_1.png",
-          "assets/sasha_dacha_walk_left_2.png",
-          "assets/sasha_dacha_walk_left_3.png",
-          "assets/sasha_dacha_walk_left_4.png"
-        ],
-        up: [
-          "assets/sasha_dacha_walk_up_1.png",
-          "assets/sasha_dacha_walk_up_2.png",
-          "assets/sasha_dacha_walk_up_3.png",
-          "assets/sasha_dacha_walk_up_4.png",
-          "assets/sasha_dacha_walk_up_5.png",
-          "assets/sasha_dacha_walk_up_6.png"
-        ],
-        down: [
-          "assets/sasha_dacha_walk_down_1.png",
-          "assets/sasha_dacha_walk_down_2.png",
-          "assets/sasha_dacha_walk_down_3.png",
-          "assets/sasha_dacha_walk_down_4.png",
-          "assets/sasha_dacha_walk_down_5.png",
-          "assets/sasha_dacha_walk_down_6.png"
-        ]
-      }
-    },
-    {
-      id: "forest",
-      angelLineKey: "dacha",
-      name: "Дачный Саня",
-      description: "Готов к дровам, поломкам и разговорам у костра.",
-      sprite: "assets/sanya_dacha.png",
-      image: "assets/sanya_dacha.png",
-      idleImage: "assets/sanya_dacha.png",
-      stats: [
-        { iconImage: "assets/ui/icon-dacha-hoard.png", label: "Всё пригодится (пассивный навык)", value: "+90" },
-        { iconImage: "assets/ui/icon-dacha-repair.png", label: "Починка без инструкций", value: "+70" },
-        { iconImage: "assets/ui/icon-dacha-weather.png", label: "Неуязвимость к погоде", value: "+65" }
-      ],
-      walkAnimations: {
-        left: [
           "assets/sasha_cardigan_walk_left_1.png",
           "assets/sasha_cardigan_walk_left_2.png",
           "assets/sasha_cardigan_walk_left_3.png",
@@ -260,6 +222,44 @@ window.GAME_DATA = {
           "assets/sasha_cardigan_walk_down_4.png",
           "assets/sasha_cardigan_walk_down_5.png",
           "assets/sasha_cardigan_walk_down_6.png"
+        ]
+      }
+    },
+    {
+      id: "forest",
+      angelLineKey: "dacha",
+      name: "Дачный Саня",
+      description: "Готов к дровам, поломкам и разговорам у костра.",
+      sprite: "assets/sanya_dacha.png",
+      image: "assets/sanya_dacha.png",
+      idleImage: "assets/sanya_dacha.png",
+      stats: [
+        { iconImage: "assets/ui/icon-dacha-hoard.png", label: "Всё пригодится (пассивный навык)", value: "+90" },
+        { iconImage: "assets/ui/icon-dacha-repair.png", label: "Починка без инструкций", value: "+70" },
+        { iconImage: "assets/ui/icon-dacha-weather.png", label: "Неуязвимость к погоде", value: "+65" }
+      ],
+      walkAnimations: {
+        left: [
+          "assets/sasha_dacha_walk_left_1.png",
+          "assets/sasha_dacha_walk_left_2.png",
+          "assets/sasha_dacha_walk_left_3.png",
+          "assets/sasha_dacha_walk_left_4.png"
+        ],
+        up: [
+          "assets/sasha_dacha_walk_up_1.png",
+          "assets/sasha_dacha_walk_up_2.png",
+          "assets/sasha_dacha_walk_up_3.png",
+          "assets/sasha_dacha_walk_up_4.png",
+          "assets/sasha_dacha_walk_up_5.png",
+          "assets/sasha_dacha_walk_up_6.png"
+        ],
+        down: [
+          "assets/sasha_dacha_walk_down_1.png",
+          "assets/sasha_dacha_walk_down_2.png",
+          "assets/sasha_dacha_walk_down_3.png",
+          "assets/sasha_dacha_walk_down_4.png",
+          "assets/sasha_dacha_walk_down_5.png",
+          "assets/sasha_dacha_walk_down_6.png"
         ]
       }
     },
