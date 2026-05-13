@@ -2104,6 +2104,50 @@ p {
   }
 }
 
+@media (orientation: portrait) and (max-width: 700px) {
+  .map-screen {
+    padding: 4px;
+  }
+
+  .map-playfield {
+    width: calc(100vw - 8px);
+    height: calc(100svh - 8px);
+    max-height: none;
+    aspect-ratio: auto;
+  }
+
+  .map-goals-widget {
+    top: 2.8%;
+    right: 2.8%;
+    width: min(45%, 220px);
+    aspect-ratio: 305 / 205;
+    padding: clamp(7px, 2.2vw, 10px) clamp(9px, 2.6vw, 13px);
+  }
+
+  .map-goals-widget h2 {
+    margin-bottom: 2px;
+    font-size: clamp(0.5rem, 2.4vw, 0.66rem);
+    line-height: 1.02;
+  }
+
+  .map-goals-list {
+    height: calc(100% - 16px);
+    align-content: space-between;
+    gap: 1px;
+  }
+
+  .map-goal-row {
+    grid-template-columns: clamp(10px, 3vw, 13px) minmax(0, 1fr) auto;
+    gap: clamp(3px, 1.2vw, 5px);
+    font-size: clamp(0.46rem, 2.05vw, 0.58rem);
+    line-height: 0.98;
+  }
+
+  .map-goal-check {
+    width: clamp(10px, 3vw, 13px);
+  }
+}
+
 .map-loading-screen {
   padding: 24px;
 }
