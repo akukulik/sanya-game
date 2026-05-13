@@ -163,7 +163,28 @@ window.GAME_DATA = {
         { iconImage: "assets/ui/icon-formal-look.png", label: "Выглядит шикарно даже уставшим", value: "+75" }
       ],
       walkAnimations: {
-        down: []
+        left: [
+          "assets/sasha_formal_walk_left_1.png",
+          "assets/sasha_formal_walk_left_2.png",
+          "assets/sasha_formal_walk_left_3.png",
+          "assets/sasha_formal_walk_left_4.png"
+        ],
+        up: [
+          "assets/sasha_formal_walk_up_1.png",
+          "assets/sasha_formal_walk_up_2.png",
+          "assets/sasha_formal_walk_up_3.png",
+          "assets/sasha_formal_walk_up_4.png",
+          "assets/sasha_formal_walk_up_5.png",
+          "assets/sasha_formal_walk_up_6.png"
+        ],
+        down: [
+          "assets/sasha_formal_walk_down_1.png",
+          "assets/sasha_formal_walk_down_2.png",
+          "assets/sasha_formal_walk_down_3.png",
+          "assets/sasha_formal_walk_down_4.png",
+          "assets/sasha_formal_walk_down_5.png",
+          "assets/sasha_formal_walk_down_6.png"
+        ]
       }
     },
     {
@@ -181,26 +202,26 @@ window.GAME_DATA = {
       ],
       walkAnimations: {
         left: [
-          "assets/sasha_cardigan_walk_left_1.png",
-          "assets/sasha_cardigan_walk_left_2.png",
-          "assets/sasha_cardigan_walk_left_3.png",
-          "assets/sasha_cardigan_walk_left_4.png"
+          "assets/sasha_dacha_walk_left_1.png",
+          "assets/sasha_dacha_walk_left_2.png",
+          "assets/sasha_dacha_walk_left_3.png",
+          "assets/sasha_dacha_walk_left_4.png"
         ],
         up: [
-          "assets/sasha_cardigan_walk_up_1.png",
-          "assets/sasha_cardigan_walk_up_2.png",
-          "assets/sasha_cardigan_walk_up_3.png",
-          "assets/sasha_cardigan_walk_up_4.png",
-          "assets/sasha_cardigan_walk_up_5.png",
-          "assets/sasha_cardigan_walk_up_6.png"
+          "assets/sasha_dacha_walk_up_1.png",
+          "assets/sasha_dacha_walk_up_2.png",
+          "assets/sasha_dacha_walk_up_3.png",
+          "assets/sasha_dacha_walk_up_4.png",
+          "assets/sasha_dacha_walk_up_5.png",
+          "assets/sasha_dacha_walk_up_6.png"
         ],
         down: [
-          "assets/sasha_cardigan_walk_down_1.png",
-          "assets/sasha_cardigan_walk_down_2.png",
-          "assets/sasha_cardigan_walk_down_3.png",
-          "assets/sasha_cardigan_walk_down_4.png",
-          "assets/sasha_cardigan_walk_down_5.png",
-          "assets/sasha_cardigan_walk_down_6.png"
+          "assets/sasha_dacha_walk_down_1.png",
+          "assets/sasha_dacha_walk_down_2.png",
+          "assets/sasha_dacha_walk_down_3.png",
+          "assets/sasha_dacha_walk_down_4.png",
+          "assets/sasha_dacha_walk_down_5.png",
+          "assets/sasha_dacha_walk_down_6.png"
         ]
       }
     },

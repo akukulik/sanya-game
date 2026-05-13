@@ -7,6 +7,7 @@
   const spriteAssets = {};
   const treeImageAssets = {};
   const objectImageAssets = {};
+  const creatorOutfits = data.characterOutfits.filter((outfit) => outfit.id !== "holiday");
   const backgroundMusic = createBackgroundMusic();
   const outfitArrowClickSound = createSoundEffect(data.audio?.outfitArrowClick);
   const heavenDialogueClickSound = createSoundEffect(data.audio?.heavenDialogueClick);
@@ -52,7 +53,7 @@
     rocks: createCollisionMask("rocks", data.map.collisionMasks?.rocks),
     water: createCollisionMask("water", data.map.collisionMasks?.water)
   };
-  const defaultOutfitId = data.characterOutfits[0]?.id || null;
+  const defaultOutfitId = creatorOutfits[0]?.id || data.characterOutfits[0]?.id || null;
   let mapReady = false;
   let mapScaled = false;
 
@@ -783,7 +784,7 @@
   function renderCharacterCreationScene(extraClass = "") {
     const outfit = getSelectedOutfit();
     const currentIndex = getSelectedOutfitIndex();
-    const totalOutfits = data.characterOutfits.length;
+    const totalOutfits = creatorOutfits.length;
     const currentAngelLine = getCurrentAngelLine(outfit);
     const isProcessing = state.currentScene !== "characterCreation";
     const showErrorPopup = state.currentScene === "restStatError";
@@ -3316,11 +3317,11 @@
   }
 
   function getSelectedOutfit() {
-    return data.characterOutfits.find((outfit) => outfit.id === state.selectedOutfitId) || data.characterOutfits[0];
+    return creatorOutfits.find((outfit) => outfit.id === state.selectedOutfitId) || creatorOutfits[0] || data.characterOutfits[0];
   }
 
   function getSelectedOutfitIndex() {
-    const selectedIndex = data.characterOutfits.findIndex((outfit) => outfit.id === state.selectedOutfitId);
+    const selectedIndex = creatorOutfits.findIndex((outfit) => outfit.id === state.selectedOutfitId);
     return selectedIndex >= 0 ? selectedIndex : 0;
   }
 
@@ -3351,12 +3352,12 @@
   }
 
   function cycleSelectedOutfit(step) {
-    if (!data.characterOutfits.length) {
+    if (!creatorOutfits.length) {
       return;
     }
 
-    const nextIndex = (getSelectedOutfitIndex() + step + data.characterOutfits.length) % data.characterOutfits.length;
-    const nextOutfit = data.characterOutfits[nextIndex];
+    const nextIndex = (getSelectedOutfitIndex() + step + creatorOutfits.length) % creatorOutfits.length;
+    const nextOutfit = creatorOutfits[nextIndex];
     state.creatorIntroLineVisible = false;
     state.selectedOutfitId = nextOutfit.id;
     advanceAngelLineForOutfit(nextOutfit);
