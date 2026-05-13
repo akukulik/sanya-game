@@ -29,6 +29,7 @@ body {
   font-family: "Trebuchet MS", "Verdana", sans-serif;
   color: var(--ink);
   background: #dce9c6;
+  overflow: hidden;
 }
 
 button,
@@ -219,14 +220,16 @@ p {
 }
 
 .creator-screen {
-  min-height: 100vh;
+  width: 100vw;
+  height: 100svh;
+  min-height: 0;
   border-radius: 0;
   padding: 0;
   background:
     linear-gradient(rgba(245, 239, 219, 0.08), rgba(245, 239, 219, 0.16)),
     var(--creator-bg) center / cover no-repeat;
   box-shadow: none;
-  overflow: auto;
+  overflow: hidden;
   position: relative;
   display: grid;
   place-items: center;
@@ -238,11 +241,11 @@ p {
   top: 0;
   z-index: 50;
   width: 100vw;
-  height: 200vh;
+  height: 200svh;
   display: grid;
-  grid-template-rows: 100vh 100vh;
+  grid-template-rows: 100svh 100svh;
   overflow: hidden;
-  transform: translateY(-100vh);
+  transform: translateY(-100svh);
   transition: transform 3.4s steps(56, jump-none);
   will-change: transform;
 }
@@ -257,9 +260,9 @@ p {
   top: 0;
   z-index: 50;
   width: 100vw;
-  height: 200vh;
+  height: 200svh;
   display: grid;
-  grid-template-rows: 100vh 100vh;
+  grid-template-rows: 100svh 100svh;
   overflow: hidden;
   transform: translateY(0);
   transition: transform 4.2s steps(68, jump-none);
@@ -267,12 +270,12 @@ p {
 }
 
 .earth-world.to-earth {
-  transform: translateY(-100vh);
+  transform: translateY(-100svh);
 }
 
 .earth-world .heaven-dialogue-scene {
   z-index: 2;
-  height: calc(100vh + 12px);
+  height: calc(100svh + 12px);
   margin-bottom: -12px;
 }
 
@@ -284,7 +287,7 @@ p {
   position: relative;
   z-index: 1;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   display: grid;
   place-items: center;
@@ -334,19 +337,19 @@ p {
 
 .vertical-world .heaven-dialogue-scene {
   z-index: 2;
-  height: calc(100vh + 12px);
+  height: calc(100svh + 12px);
   margin-bottom: -12px;
 }
 
 .character-creation-scene {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
 }
 
 .character-creation-scene .creator-screen {
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   background: var(--creator-bg) center / cover no-repeat;
 }
@@ -385,9 +388,9 @@ p {
   z-index: 1;
   display: grid;
   gap: clamp(16px, 2.2vw, 28px);
-  width: min(100%, calc(100vh * 1.5988));
-  min-width: 1040px;
-  min-height: 651px;
+  width: min(calc(100vw - 16px), calc((100svh - 16px) * 1.5988));
+  min-width: 0;
+  min-height: 0;
   aspect-ratio: 1586 / 992;
   align-content: stretch;
   padding: clamp(14px, 2vw, 24px);
@@ -888,7 +891,7 @@ p {
   position: relative;
   z-index: 1;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   background: var(--heaven-bg) center / cover no-repeat;
   color: #3d2618;
@@ -1545,6 +1548,8 @@ p {
   width: min(calc(100vw - clamp(12px, 2vw, 24px)), calc((100svh - clamp(12px, 2vw, 24px)) * 1.6387));
   max-height: calc(100svh - clamp(12px, 2vw, 24px));
   aspect-ratio: 1560 / 952;
+  container-type: size;
+  container-name: map-playfield;
   min-height: 0;
   overflow: hidden;
   border-radius: 2px;
@@ -1692,7 +1697,7 @@ p {
 .map-rest-widget {
   top: 5.6%;
   left: 50%;
-  width: min(31vw, 472px);
+  width: min(31%, 472px);
   aspect-ratio: 472 / 68;
   transform: translateX(-50%);
   display: grid;
@@ -1727,9 +1732,9 @@ p {
 .map-goals-widget {
   top: 5.6%;
   right: 3.8%;
-  width: min(26vw, 340px);
+  width: min(26%, 340px);
   aspect-ratio: 305 / 177;
-  padding: clamp(12px, 0.98vw, 16px) clamp(16px, 1.45vw, 23px);
+  padding: clamp(10px, 0.82vw, 14px) clamp(14px, 1.25vw, 20px);
   background: var(--map-goals-panel) center / 100% 100% no-repeat;
   transform: translateY(0);
   transition: transform 360ms steps(6, end);
@@ -1740,32 +1745,32 @@ p {
 }
 
 .map-goals-widget h2 {
-  margin: 0 0 clamp(5px, 0.55vw, 8px);
+  margin: 0 0 clamp(3px, 0.42vw, 6px);
   text-align: center;
   text-transform: uppercase;
-  font-size: clamp(0.74rem, 0.98vw, 0.98rem);
-  line-height: 1.12;
+  font-size: clamp(0.72rem, 0.92vw, 0.94rem);
+  line-height: 1.08;
 }
 
 .map-goals-list {
   display: grid;
-  height: calc(100% - clamp(20px, 2vw, 30px));
+  height: calc(100% - clamp(16px, 1.6vw, 24px));
   align-content: space-between;
-  gap: clamp(3px, 0.32vw, 5px);
+  gap: clamp(2px, 0.28vw, 5px);
 }
 
 .map-goal-row {
   display: grid;
-  grid-template-columns: clamp(15px, 1.3vw, 19px) minmax(0, 1fr) auto;
+  grid-template-columns: clamp(13px, 1.08vw, 17px) minmax(0, 1fr) auto;
   align-items: center;
-  gap: clamp(6px, 0.75vw, 10px);
-  font-size: clamp(0.72rem, 0.88vw, 0.92rem);
+  gap: clamp(4px, 0.55vw, 8px);
+  font-size: clamp(0.68rem, 0.84vw, 0.88rem);
   font-weight: 700;
-  line-height: 1.05;
+  line-height: 1.04;
 }
 
 .map-goal-check {
-  width: clamp(15px, 1.3vw, 19px);
+  width: clamp(13px, 1.08vw, 17px);
   aspect-ratio: 1;
   background: var(--map-check-empty) center / contain no-repeat;
 }
@@ -1796,7 +1801,7 @@ p {
   position: relative;
   width: 100%;
   height: 100%;
-  padding: clamp(12px, 1.15vw, 17px) clamp(14px, 1.3vw, 20px) clamp(10px, 1vw, 14px) clamp(84px, 6.1vw, 96px);
+  padding: clamp(12px, 1.15vw, 17px) clamp(14px, 1.3vw, 20px) clamp(10px, 1vw, 14px) clamp(74px, 5.6vw, 86px);
   display: grid;
   align-content: center;
   gap: 2px;
@@ -1812,13 +1817,14 @@ p {
 
 .map-active-icon {
   position: absolute;
-  left: 6.7%;
-  top: 15%;
-  width: 25%;
+  left: 6.2%;
+  top: 50%;
+  width: min(18%, 48px);
   aspect-ratio: 1;
   display: grid;
   place-items: center;
   background: var(--map-inventory-slot) center / contain no-repeat;
+  transform: translateY(-50%);
 }
 
 .map-active-icon img,
@@ -1882,7 +1888,7 @@ p {
 }
 
 .map-speech-bubble {
-  width: min(20vw, 235px);
+  width: min(20%, 235px);
   aspect-ratio: 235 / 112;
   padding: clamp(18px, 1.8vw, 26px) clamp(20px, 1.9vw, 28px) clamp(24px, 2.1vw, 32px);
   display: grid;
@@ -1914,6 +1920,188 @@ p {
   max-height: 4.9em;
   overflow: hidden;
   transform: translateY(-6px);
+}
+
+@container map-playfield (max-width: 760px) {
+  .map-rest-widget {
+    top: 3.8%;
+    left: 2.8%;
+    width: min(45%, 280px);
+    transform: none;
+    grid-template-columns: max-content minmax(0, 1fr) max-content;
+    padding: 0 clamp(12px, 2.4cqw, 18px);
+    gap: clamp(3px, 0.75cqw, 6px);
+    font-size: clamp(0.58rem, 1.75cqw, 0.82rem);
+  }
+
+  .map-rest-widget > span,
+  .map-rest-widget > strong {
+    white-space: nowrap;
+  }
+
+  .map-rest-leaf {
+    width: clamp(7px, 1.7cqw, 12px);
+  }
+
+  .map-rest-leaves {
+    gap: clamp(1px, 0.18cqw, 3px);
+  }
+
+  .map-goals-widget {
+    top: 3.8%;
+    right: 2.8%;
+    width: min(31%, 220px);
+    padding: clamp(7px, 1.6cqw, 10px) clamp(9px, 2cqw, 14px);
+  }
+
+  .map-goals-widget h2 {
+    margin-bottom: 3px;
+    font-size: clamp(0.52rem, 1.6cqw, 0.72rem);
+  }
+
+  .map-goals-list {
+    height: calc(100% - 15px);
+    gap: 1px;
+  }
+
+  .map-goal-row {
+    grid-template-columns: clamp(10px, 2.2cqw, 14px) minmax(0, 1fr) auto;
+    gap: clamp(3px, 1cqw, 6px);
+    font-size: clamp(0.48rem, 1.45cqw, 0.68rem);
+    line-height: 1;
+  }
+
+  .map-goal-check {
+    width: clamp(10px, 2.2cqw, 14px);
+  }
+
+  .map-bottom-hud {
+    left: 2.8%;
+    right: 2.8%;
+    bottom: 3.5%;
+    grid-template-columns: minmax(110px, 0.34fr) minmax(0, 0.66fr);
+    height: clamp(44px, 11.5cqw, 62px);
+    gap: clamp(5px, 1.2cqw, 8px);
+  }
+
+  .map-active-item-widget {
+    padding: clamp(8px, 1.6cqw, 11px) clamp(7px, 1.5cqw, 10px) clamp(7px, 1.4cqw, 10px) clamp(56px, 10.5cqw, 66px);
+    font-size: clamp(0.52rem, 1.6cqw, 0.72rem);
+  }
+
+  .map-active-item-widget strong {
+    font-size: clamp(0.55rem, 1.65cqw, 0.76rem);
+  }
+
+  .map-active-icon {
+    left: 5%;
+    width: min(18%, 38px);
+  }
+
+  .map-inventory-widget {
+    width: 100%;
+    justify-self: stretch;
+    padding: clamp(6px, 1.4cqw, 9px) clamp(8px, 1.6cqw, 12px);
+    gap: clamp(3px, 1cqw, 6px);
+  }
+
+  .map-inventory-slot {
+    width: clamp(28px, 7.1cqw, 40px);
+  }
+
+  .map-inventory-slot span:not(.map-item-emoji) {
+    font-size: clamp(0.45rem, 1.1cqw, 0.6rem);
+  }
+
+  .map-speech-bubble {
+    width: min(28%, 160px);
+    padding: clamp(12px, 2.5cqw, 16px) clamp(12px, 2.6cqw, 17px) clamp(15px, 3cqw, 20px);
+    font-size: clamp(0.52rem, 1.55cqw, 0.7rem);
+  }
+}
+
+@container map-playfield (min-width: 761px) and (max-width: 980px) {
+  .map-bottom-hud {
+    left: 2.8%;
+    right: 2.8%;
+    grid-template-columns: minmax(150px, 0.32fr) minmax(0, 0.68fr);
+    height: clamp(54px, 7.7cqw, 72px);
+    gap: clamp(6px, 0.9cqw, 10px);
+  }
+
+  .map-active-item-widget {
+    padding: clamp(9px, 1.3cqw, 12px) clamp(9px, 1.4cqw, 13px) clamp(8px, 1.2cqw, 11px) clamp(64px, 7.8cqw, 74px);
+    font-size: clamp(0.58rem, 1.25cqw, 0.76rem);
+  }
+
+  .map-active-item-widget strong {
+    font-size: clamp(0.62rem, 1.32cqw, 0.82rem);
+  }
+
+  .map-active-icon {
+    left: 5.6%;
+    top: 50%;
+    width: min(17%, 38px);
+  }
+
+  .map-inventory-widget {
+    width: 100%;
+    justify-self: stretch;
+    padding: clamp(7px, 1.1cqw, 10px) clamp(10px, 1.35cqw, 14px);
+    gap: clamp(4px, 0.75cqw, 7px);
+  }
+
+  .map-inventory-slot {
+    width: clamp(34px, 5.5cqw, 46px);
+  }
+
+  .map-rest-widget {
+    grid-template-columns: max-content minmax(0, 1fr) max-content;
+    gap: clamp(4px, 0.55cqw, 7px);
+    padding: 0 clamp(14px, 1.8cqw, 22px);
+  }
+
+  .map-rest-widget > span,
+  .map-rest-widget > strong {
+    white-space: nowrap;
+  }
+
+  .map-rest-leaves {
+    gap: clamp(1px, 0.22cqw, 4px);
+  }
+
+  .map-rest-leaf {
+    width: clamp(9px, 1.35cqw, 15px);
+  }
+
+  .map-goals-widget {
+    width: min(27.5%, 248px);
+    aspect-ratio: 305 / 177;
+    padding: clamp(9px, 1.15cqw, 12px) clamp(11px, 1.55cqw, 15px);
+  }
+
+  .map-goals-widget h2 {
+    margin-bottom: clamp(3px, 0.42cqw, 5px);
+    font-size: clamp(0.6rem, 1.28cqw, 0.76rem);
+    line-height: 1.06;
+  }
+
+  .map-goals-list {
+    height: calc(100% - 21px);
+    align-content: space-between;
+    gap: clamp(1px, 0.25cqw, 3px);
+  }
+
+  .map-goal-row {
+    grid-template-columns: clamp(12px, 1.55cqw, 15px) minmax(0, 1fr) auto;
+    gap: clamp(4px, 0.7cqw, 6px);
+    font-size: clamp(0.56rem, 1.16cqw, 0.68rem);
+    line-height: 1.03;
+  }
+
+  .map-goal-check {
+    width: clamp(12px, 1.55cqw, 15px);
+  }
 }
 
 .map-loading-screen {
@@ -1976,7 +2164,7 @@ p {
   }
 
   .heaven-dialogue-scene {
-    min-height: 100vh;
+    min-height: 100svh;
   }
 
   .heaven-sprite-god {
@@ -1993,7 +2181,24 @@ p {
 
   .heaven-bubble {
     width: min(58vw, 360px);
+    aspect-ratio: 402 / 150;
     min-height: 0;
+    font-size: clamp(0.72rem, 2.7vw, 0.95rem);
+    line-height: 1.12;
+  }
+
+  .heaven-bubble-content {
+    padding: clamp(8px, 1.6vw, 12px) clamp(16px, 3vw, 24px) clamp(10px, 1.8vw, 14px) clamp(28px, 5vw, 42px);
+  }
+
+  .heaven-bubble-god .heaven-bubble-content {
+    padding-right: clamp(28px, 5vw, 42px);
+    padding-left: clamp(16px, 3vw, 24px);
+  }
+
+  .heaven-speaker {
+    margin-bottom: 3px;
+    font-size: clamp(0.56rem, 2vw, 0.68rem);
   }
 
   .heaven-bubble-god {
@@ -2010,6 +2215,251 @@ p {
   .heaven-next {
     right: 7vw;
     bottom: 3vh;
+  }
+}
+
+@media (max-width: 980px), (max-height: 700px) {
+  .creator-scene {
+    gap: clamp(10px, 1.8vw, 18px);
+    padding: clamp(10px, 1.7vw, 18px);
+  }
+
+  .creator-board {
+    gap: clamp(10px, 1.6vw, 16px);
+    padding: clamp(14px, 2vw, 20px);
+  }
+
+  .creator-panels {
+    gap: clamp(10px, 1.6vw, 16px);
+  }
+
+  .creator-panel-card {
+    padding: clamp(13px, 2vw, 20px);
+  }
+
+  .creator-panel-header {
+    padding-bottom: clamp(5px, 0.9vw, 9px);
+  }
+
+  .creator-panel-header h2 {
+    font-size: clamp(0.9rem, 2vw, 1.2rem);
+  }
+
+  .creator-counter {
+    width: clamp(68px, 16%, 96px);
+  }
+
+  .creator-counter span {
+    font-size: clamp(0.76rem, 2vw, 0.98rem);
+  }
+
+  .creator-showcase {
+    top: clamp(42px, 13%, 58px);
+    bottom: clamp(78px, 24%, 98px);
+    grid-template-columns: clamp(34px, 9%, 48px) minmax(0, 1fr) clamp(34px, 9%, 48px);
+  }
+
+  .outfit-arrow {
+    max-width: 48px;
+  }
+
+  .creator-description-card {
+    width: min(74%, 285px);
+    min-height: clamp(60px, 20%, 82px);
+    padding: clamp(9px, 1.5vw, 13px) clamp(12px, 2vw, 16px);
+  }
+
+  .creator-description-card h3 {
+    font-size: clamp(0.72rem, 1.9vw, 0.94rem);
+  }
+
+  .creator-description-card p {
+    font-size: clamp(0.58rem, 1.45vw, 0.74rem);
+    line-height: 1.16;
+  }
+
+  .creator-stats-panel {
+    padding-top: clamp(34px, 5vw, 48px);
+  }
+
+  .creator-stats-list {
+    width: 86%;
+    gap: clamp(5px, 0.9vw, 8px);
+  }
+
+  .outfit-stat-card {
+    min-height: clamp(44px, 8.2vw, 58px);
+    grid-template-columns: clamp(38px, 5.5vw, 50px) minmax(0, 1fr);
+    gap: clamp(5px, 1vw, 8px);
+    padding: clamp(6px, 1vw, 9px) clamp(9px, 1.5vw, 13px);
+  }
+
+  .outfit-stat-icon {
+    width: clamp(34px, 5vw, 46px);
+    height: clamp(34px, 5vw, 46px);
+  }
+
+  .outfit-stat-label {
+    font-size: clamp(0.68rem, 1.55vw, 0.84rem);
+  }
+
+  .outfit-stat-value {
+    font-size: clamp(0.72rem, 1.7vw, 0.9rem);
+  }
+
+  .creator-select-button {
+    width: min(100%, clamp(220px, 30vw, 320px));
+    min-height: clamp(42px, 6.6vw, 58px);
+  }
+}
+
+@media (max-width: 760px), (orientation: landscape) and (max-height: 520px) {
+  .creator-scene {
+    width: min(calc(100vw - 10px), calc((100svh - 10px) * 1.5988));
+    gap: clamp(6px, 1.4vw, 12px);
+    padding: clamp(8px, 1.5vw, 14px);
+    transform: none;
+  }
+
+  .creator-top {
+    display: none;
+  }
+
+  .creator-board {
+    gap: clamp(8px, 1.4vw, 14px);
+    padding: clamp(10px, 1.6vw, 16px);
+  }
+
+  .creator-panels {
+    gap: clamp(8px, 1.4vw, 14px);
+    padding-top: 0;
+  }
+
+  .creator-panel-card {
+    padding: clamp(10px, 1.8vw, 16px);
+  }
+
+  .creator-panel-header {
+    padding-bottom: clamp(4px, 0.9vw, 8px);
+  }
+
+  .creator-panel-header h2 {
+    font-size: clamp(0.82rem, 2.4vw, 1.05rem);
+  }
+
+  .creator-outfit-box {
+    padding: clamp(8px, 1.5vw, 12px);
+  }
+
+  .creator-counter {
+    top: clamp(6px, 1.2vw, 10px);
+    width: clamp(58px, 15%, 86px);
+  }
+
+  .creator-counter span {
+    font-size: clamp(0.65rem, 1.8vw, 0.86rem);
+  }
+
+  .creator-showcase {
+    top: clamp(34px, 12%, 48px);
+    left: clamp(10px, 3%, 16px);
+    right: clamp(10px, 3%, 16px);
+    bottom: clamp(70px, 24%, 88px);
+    grid-template-columns: clamp(30px, 9%, 42px) minmax(0, 1fr) clamp(30px, 9%, 42px);
+  }
+
+  .pixel-preview {
+    height: 90%;
+    max-height: 170px;
+  }
+
+  .outfit-arrow {
+    max-width: 42px;
+  }
+
+  .creator-description-card {
+    width: min(76%, 250px);
+    min-height: clamp(52px, 20%, 68px);
+    padding: clamp(8px, 1.4vw, 11px) clamp(10px, 1.8vw, 14px);
+  }
+
+  .creator-description-card h3 {
+    font-size: clamp(0.64rem, 1.9vw, 0.82rem);
+  }
+
+  .creator-description-card p {
+    font-size: clamp(0.52rem, 1.55vw, 0.68rem);
+    line-height: 1.12;
+  }
+
+  .creator-stats-panel {
+    padding-top: clamp(28px, 6vw, 42px);
+  }
+
+  .creator-stats-list {
+    width: 88%;
+    gap: clamp(4px, 0.9vw, 7px);
+  }
+
+  .outfit-stat-card {
+    min-height: clamp(39px, 10svh, 52px);
+    grid-template-columns: clamp(34px, 6.4vw, 46px) minmax(0, 1fr);
+    gap: clamp(4px, 0.9vw, 8px);
+    padding: clamp(5px, 1vw, 8px) clamp(8px, 1.5vw, 12px);
+  }
+
+  .outfit-stat-icon {
+    width: clamp(30px, 6vw, 42px);
+    height: clamp(30px, 6vw, 42px);
+  }
+
+  .outfit-stat-copy {
+    gap: 6px;
+  }
+
+  .outfit-stat-label,
+  .outfit-stat-value {
+    font-size: clamp(0.6rem, 1.55vw, 0.78rem);
+  }
+
+  .creator-select-button {
+    width: min(100%, clamp(190px, 30vw, 280px));
+    min-height: clamp(38px, 8svh, 52px);
+  }
+
+  .heaven-sprite-god {
+    right: 12vw;
+    top: 10vh;
+    width: clamp(112px, 22vw, 176px);
+  }
+
+  .heaven-sprite-angel {
+    left: 9vw;
+    top: 44vh;
+    width: clamp(96px, 21vw, 150px);
+  }
+
+  .heaven-bubble {
+    width: min(42vw, 280px);
+    font-size: clamp(0.7rem, 1.8vw, 0.88rem);
+  }
+
+  .heaven-bubble-god {
+    right: 34vw;
+    top: 13vh;
+  }
+
+  .heaven-bubble-angel {
+    left: 30vw;
+    top: 47vh;
+  }
+
+  .heaven-next {
+    right: 4vw;
+    bottom: 4vh;
+    width: clamp(108px, 17vw, 138px);
+    height: clamp(34px, 8vh, 46px);
+    font-size: clamp(0.78rem, 1.9vw, 0.96rem);
   }
 }
 

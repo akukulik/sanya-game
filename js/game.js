@@ -150,6 +150,7 @@
       width: 960,
       height: 600
     },
+    mapZoom: 1,
     pressedKeys: new Set(),
     collisionNotice: null,
     pendingCollision: null,
@@ -1899,8 +1900,8 @@
     const scaleY = canvas.height / rect.height;
     const x = (event.clientX - rect.left) * scaleX;
     const y = (event.clientY - rect.top) * scaleY;
-    const worldX = x + state.camera.x;
-    const worldY = y + state.camera.y;
+    const worldX = state.camera.x + x / state.mapZoom;
+    const worldY = state.camera.y + y / state.mapZoom;
 
     const object = findObjectAt(worldX, worldY);
     if (object) {
@@ -2232,10 +2233,12 @@
   }
 
   function updateCamera() {
-    const maxCameraX = Math.max(0, data.map.worldWidth - state.viewport.width);
-    const maxCameraY = Math.max(0, data.map.worldHeight - state.viewport.height);
-    const targetCameraX = clamp(state.player.x - state.viewport.width / 2, 0, maxCameraX);
-    const targetCameraY = clamp(state.player.y - state.viewport.height / 2, 0, maxCameraY);
+    const visibleWidth = getVisibleWorldWidth();
+    const visibleHeight = getVisibleWorldHeight();
+    const maxCameraX = Math.max(0, data.map.worldWidth - visibleWidth);
+    const maxCameraY = Math.max(0, data.map.worldHeight - visibleHeight);
+    const targetCameraX = clamp(state.player.x - visibleWidth / 2, 0, maxCameraX);
+    const targetCameraY = clamp(state.player.y - visibleHeight / 2, 0, maxCameraY);
 
     state.camera.targetX = targetCameraX;
     state.camera.targetY = targetCameraY;
@@ -2684,13 +2687,17 @@
 
     ctx.imageSmoothingEnabled = false;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.save();
+    ctx.scale(state.mapZoom, state.mapZoom);
     drawBackground();
     drawObjects();
     drawDepthSortedScene();
     drawFloatingRestPopups();
+    drawDebugOverlays();
+    ctx.restore();
     updateMapSpeechBubblePosition();
     updateMapGoalsWidgetPosition();
-    drawDebugOverlays();
+    updateMapDebugStateElement();
   }
 
   function drawBackground() {
@@ -3041,15 +3048,17 @@
       return;
     }
 
-    const { drawWidth, drawX, drawY } = getPlayerRenderData();
+    const { drawY } = getPlayerRenderData();
     const bubbleWidth = bubble.offsetWidth;
     const bubbleHeight = bubble.offsetHeight;
-    const playerCenterX = drawX + drawWidth / 2;
+    const playerCenter = worldToViewportScreen(state.player.x, state.player.y);
+    const playerTopY = drawY * state.mapZoom;
+    const playerCenterX = playerCenter.x;
     const margin = 12;
     const maxLeft = Math.max(margin, canvas.width - bubbleWidth - margin);
     const maxTop = Math.max(margin, canvas.height - bubbleHeight - margin);
     const left = clamp(playerCenterX - bubbleWidth * 0.5, margin, maxLeft);
-    const top = clamp(drawY - bubbleHeight - 12, margin, maxTop);
+    const top = clamp(playerTopY - bubbleHeight - 12, margin, maxTop);
 
     bubble.style.left = `${left}px`;
     bubble.style.top = `${top}px`;
@@ -3620,6 +3629,7 @@
 
     state.viewport.width = width;
     state.viewport.height = height;
+    state.mapZoom = calculateMapZoom(width, height);
   }
 
   function handleResize() {
@@ -3636,21 +3646,51 @@
     };
   }
 
+  function worldToViewportScreen(worldX, worldY) {
+    const screen = worldToScreen(worldX, worldY);
+
+    return {
+      x: screen.x * state.mapZoom,
+      y: screen.y * state.mapZoom
+    };
+  }
+
+  function getVisibleWorldWidth() {
+    return state.viewport.width / state.mapZoom;
+  }
+
+  function getVisibleWorldHeight() {
+    return state.viewport.height / state.mapZoom;
+  }
+
+  function calculateMapZoom(width, height) {
+    const widthZoom = width / 1100;
+    const heightZoom = height / 650;
+
+    return clamp(Math.min(widthZoom, heightZoom), 0.68, 1);
+  }
+
   function isVisibleCircle(screenX, screenY, radius) {
+    const visibleWidth = getVisibleWorldWidth();
+    const visibleHeight = getVisibleWorldHeight();
+
     return (
       screenX + radius >= 0 &&
-      screenX - radius <= state.viewport.width &&
+      screenX - radius <= visibleWidth &&
       screenY + radius >= 0 &&
-      screenY - radius <= state.viewport.height
+      screenY - radius <= visibleHeight
     );
   }
 
   function isVisibleRect(screenX, screenY, width, height) {
+    const visibleWidth = getVisibleWorldWidth();
+    const visibleHeight = getVisibleWorldHeight();
+
     return (
       screenX + width >= 0 &&
-      screenX <= state.viewport.width &&
+      screenX <= visibleWidth &&
       screenY + height >= 0 &&
-      screenY <= state.viewport.height
+      screenY <= visibleHeight
     );
   }
 
@@ -3958,6 +3998,16 @@
     );
   }
 
+  function updateMapDebugStateElement() {
+    const debugElement = document.getElementById("map-debug-state");
+
+    if (!debugElement) {
+      return;
+    }
+
+    debugElement.textContent = JSON.stringify(getMapDebugState());
+  }
+
   function isPointInsideRect(x, y, rect) {
     return (
       x >= rect.x &&
@@ -4012,8 +4062,11 @@
       camera: {
         x: Math.round(state.camera.x),
         y: Math.round(state.camera.y),
+        zoom: Number(state.mapZoom.toFixed(3)),
         viewportWidth: state.viewport.width,
-        viewportHeight: state.viewport.height
+        viewportHeight: state.viewport.height,
+        visibleWorldWidth: Math.round(getVisibleWorldWidth()),
+        visibleWorldHeight: Math.round(getVisibleWorldHeight())
       },
       player: {
         x: Math.round(state.player.x),
